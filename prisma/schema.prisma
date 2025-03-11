@@ -14,23 +14,27 @@ datasource db {
 }
 
 model Estudiante {
-  id       Int     @id @default(autoincrement())
-  nombre   String
-  correo   String  @unique
-  cursos   Matricula[]
+  id          String    @id @default(uuid())
+  nombre      String
+  email       String    @unique
+  edad       Int
+  cursos      Matricula[]
 }
 
 model Curso {
-  codigo_curso         Int     @id @default(autoincrement())
-  nombre     String
-  cupoMaximo Int
-  matriculas Matricula[]
+  id          String    @id @default(uuid())
+  nombre      String
+  cupos       Int
+  matriculas  Matricula[]
 }
 
 model Matricula {
-  codigo_matricula         Int      @id @default(autoincrement())
-  estudiante Estudiante @relation(fields: [estudianteId], references: [id])
-  estudianteId Int
-  curso     Curso     @relation(fields: [cursoId], references: [codigo_curso])
-  cursoId   Int
+  id          String    @id @default(uuid())
+  estudiante  Estudiante @relation(fields: [estudianteId], references: [id])
+  estudianteId String
+  curso       Curso @relation(fields: [cursoId], references: [id])
+  cursoId     String
+  fecha       DateTime @default(now())
 }
+
+
